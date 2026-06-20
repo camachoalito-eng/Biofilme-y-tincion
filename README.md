@@ -111,7 +111,7 @@
   @keyframes flashFade{ from{opacity:.85;} to{opacity:0;} }
 
   /* ---------- Entities ---------- */
-  #entities{ position:absolute; inset:0; z-index:10; }
+  #entities{ position:absolute; inset:0; z-index:10; pointer-events:none; }
   .entity{
     position:absolute; top:0; left:0;
     display:flex; align-items:center; justify-content:center;
@@ -155,7 +155,7 @@
     position:absolute; top:76%; width:60px; height:60px; margin-left:-30px;
     display:flex; align-items:center; justify-content:center; font-size:38px;
     transition:left .14s ease-out;
-    z-index:20; transform:rotate(0deg);
+    z-index:20; transform:rotate(0deg); pointer-events:none;
     animation:run .5s ease-in-out infinite;
     filter:drop-shadow(0 6px 6px rgba(0,0,0,.25));
   }
@@ -257,7 +257,7 @@
   .recap-item span.ic{ font-size:18px; flex:0 0 auto; }
 
   /* ---------- Touch zones (invisible) ---------- */
-  #touchZones{ position:absolute; inset:0; z-index:5; }
+  #touchZones{ position:absolute; inset:0; z-index:5; touch-action:none; }
 
   @media (prefers-reduced-motion: reduce){
     #player, .entity.powerup, .entity.type-biofilm, .entity.type-sarro, #player.shield::before { animation:none !important; }
@@ -767,6 +767,7 @@
     }
     touchStartX = null;
   });
+  touchZones.addEventListener('pointercancel', ()=>{ touchStartX = null; });
 
   // ---------- Game flow ----------
   function resetState(){
